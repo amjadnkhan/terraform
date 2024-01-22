@@ -12,7 +12,7 @@ resource "azurerm_resource_group" "sldr" {
 resource "azurerm_virtual_network" "vnet1" {
   provider = azurerm.sldr-sub
   name                = var.vnet1 #"SLDR-HUB"
-  address_space       = var.vnet1_space # ["10.235.0.0/23"]
+  address_space       = var.vnet1_space 
   location            = azurerm_resource_group.sldr.location
   resource_group_name = azurerm_resource_group.sldr.name
 }
@@ -23,7 +23,7 @@ resource "azurerm_subnet" "subnet1" {
   name                 = var.subnet1 #"SLDR-Internal"
   resource_group_name  = azurerm_resource_group.sldr.name
   virtual_network_name = azurerm_virtual_network.vnet1.name
-  address_prefixes     = var.subnet1_space # ["10.235.0.0/27"]
+  address_prefixes     = var.subnet1_space # 
 }
 
 resource "azurerm_network_security_group" "nsg1" {
@@ -59,7 +59,7 @@ resource "azurerm_subnet" "subnet2" {
   name                 = var.subnet2 # "SLDR-External"
   resource_group_name  = azurerm_resource_group.sldr.name
   virtual_network_name = azurerm_virtual_network.vnet1.name
-  address_prefixes     = var.subnet2_space #["10.235.0.64/27"]
+  address_prefixes     = var.subnet2_space
 }
 
 resource "azurerm_network_security_group" "nsg2" {
@@ -82,7 +82,7 @@ resource "azurerm_subnet" "subnet3" {
   name                 = var.subnet3 #"SLDR-FW"
   resource_group_name  = azurerm_resource_group.sldr.name
   virtual_network_name = azurerm_virtual_network.vnet1.name
-  address_prefixes     = var.subnet3_space #["10.235.0.128/27"]
+  address_prefixes     = var.subnet3_space
 }
 
 resource "azurerm_network_security_group" "nsg3" {
@@ -108,7 +108,7 @@ resource "azurerm_resource_group" "dr" {
 resource "azurerm_virtual_network" "vnet2" {
   provider = azurerm.dr-sub
   name                = var.vnet2 #"Dr-Spoke"
-  address_space       = var.vnet2_space#["10.235.10.0/23"]
+  address_space       = var.vnet2_space
   location            = azurerm_resource_group.dr.location
   resource_group_name = azurerm_resource_group.dr.name
 }
@@ -120,7 +120,7 @@ resource "azurerm_subnet" "subnet01" {
   name                 = var.subnet01#"DR-Apps01"
   resource_group_name  = azurerm_resource_group.dr.name
   virtual_network_name = azurerm_virtual_network.vnet2.name
-  address_prefixes     = var.subnet01_space#["10.235.10.0/24"]
+  address_prefixes     = var.subnet01_space
 }
 
 resource "azurerm_network_security_group" "nsg01" {
@@ -158,7 +158,7 @@ resource "azurerm_subnet" "subnet02" {
   name                 = var.subnet02#"DR-Apps02"
   resource_group_name  = azurerm_resource_group.dr.name
   virtual_network_name = azurerm_virtual_network.vnet2.name
-  address_prefixes     = var.subnet02_space #["10.235.11.0/24"]
+  address_prefixes     = var.subnet02_space 
 }
 
 resource "azurerm_network_security_group" "nsg02" {
